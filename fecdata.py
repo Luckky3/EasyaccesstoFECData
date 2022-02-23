@@ -194,6 +194,7 @@ def Looking(name):
 def Data(dataframe,type):
     DF=dataframe
     if type == 'Raised':
+        DF=DF.loc[:,['Name','I/C','Party','$$','State','District']]
         dfsort = DF.sort_values('$$', ascending=False)
         def format(x):
             return "${:.2f}M".format(x/1000000)
@@ -201,10 +202,10 @@ def Data(dataframe,type):
         candidates=dfsort.shape[0]
         print(dfsort.head(candidates))
         dfmost=dfsort.head(1)
-        amount1=str(dfmost.iat[0,4])
-        party1=str(dfmost.iat[0,3])
-        candidate1=str(dfmost.iat[0,1])
-        status1=str(dfmost.iat[0,2])
+        amount1=str(dfmost.iat[0,3])
+        party1=str(dfmost.iat[0,2])
+        candidate1=str(dfmost.iat[0,0])
+        status1=str(dfmost.iat[0,1])
         if status1 == 'C':
             s='a challenger'
         elif status1 == 'I':
@@ -213,6 +214,7 @@ def Data(dataframe,type):
         print(answer)
         return
     elif type == 'Spent':
+        DF=DF.loc[:,['Name','I/C','Party','Spend','State','District']]
         dfsort = DF.sort_values('Spend', ascending=False)
         def format(x):
             return "${:.2f}M".format(x/1000000)
@@ -220,10 +222,10 @@ def Data(dataframe,type):
         candidates=dfsort.shape[0]
         print(dfsort.head(candidates))
         dfmost=dfsort.head(1)
-        amount1=str(dfmost.iat[0,5])
-        party1=str(dfmost.iat[0,3])
-        candidate1=str(dfmost.iat[0,1])
-        status1=str(dfmost.iat[0,2])
+        amount1=str(dfmost.iat[0,3])
+        party1=str(dfmost.iat[0,2])
+        candidate1=str(dfmost.iat[0,0])
+        status1=str(dfmost.iat[0,1])
         if status1 == 'C':
             s='a challenger'
         elif status1 == 'I':
