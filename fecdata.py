@@ -6,7 +6,7 @@ df1 = df1.rename(columns={1:"Name"})
 df1 = df1.rename(columns = {2:"I/C"})
 df1 = df1.rename(columns = {4:"Party"})
 df1 = df1.rename(columns = {5:"$$"})
-df1 = df1.rename(columns = {7:"Expenditures"})
+df1 = df1.rename(columns = {7:"Spend"})
 df1 = df1.rename(columns = {18:"State"})
 dfbase = df1.rename(columns = {19:"District"})
 Status='First'
@@ -45,17 +45,73 @@ def DataFrame(body,state,party,district):
                     print(dfhouseDistrictD)
                     return dfhouseDistrictD
     elif body == 'S':
-        pass
+        dfSenate = dfbase.loc[dfbase['ID']>'R']
+        if state == 'N/A':
+            if party == 'A':
+                return dfSenate
+            elif party == 'R':
+                dfSenateR=dfSenate.loc[dfSenate['Party']=='REP']
+                return dfSenateR
+            elif party == 'D':
+                dfSenateD=dfSenate.loc[dfSenate['Party']=='DEM']
+                return dfSenateD
+        else:
+            dfSenateState=dfSenate.loc[dfSenate['State']==state]
+            if party == 'A':
+                return dfSenateState
+            elif party == 'R':
+                dfSenateStateR=dfSenateState.loc[dfSenateState['Party']=='REP']
+                return dfSenateStateR
+            elif party == 'D':
+                dfSenateStateD=dfSenateState.loc[dfSenateState['Party']=='DEM']
+                return dfSenateStateD
     elif body == 'P':
-        pass
+        dfP1 = dfbase.loc[dfbase['ID']<'R']
+        dfPres = dfP1.loc[dfP1['ID']>'I']
+        if party == 'A':
+            return dfPres
+        elif party == 'D':
+            dfPresD = dfPres.loc[dfPres['Party']=='DEM']
+            return dfPresD
+        elif party == 'D':
+            dfPresR = dfPres.loc[dfPres['Party']=='REP']
+            return dfPresR
     elif body == 'C':
-        pass
+        dfC1 = dfbase.loc[dfbase['ID']>'R']
+        dfC2 = dfbase.loc[dfbase['ID']<'I']
+        dfCongress = pd.concat([dfC1,dfC2])
+        if state == 'N/A':
+            if party == 'A':
+                return dfCongress
+            elif party == 'R':
+                dfCongressR=dfCongress.loc[dfCongress['Party']=='REP']
+                return dfCongressR
+            elif party == 'D':
+                dfCongress=dfCongress.loc[dfCongress['Party']=='DEM']
+                return dfCongress
+        else:
+            dfCongressState=dfCongress.loc[dfCongress['State']==state]
+            if party == 'A':
+                return dfCongressState
+            elif party == 'R':
+                dfCongressStateR=dfCongressState.loc[dfCongressState['Party']=='REP']
+                return dfCongressStateR
+            elif party == 'D':
+                dfCongressStateD=dfCongressState.loc[dfCongressState['Party']=='DEM']
+                return dfCongressStateD
     elif body == 'A':
-        pass
+        if party == 'A':
+            return dfbase
+        elif party == 'R':
+            dfRepublicans = dfbase.loc[dfbase['Party']=='REP']
+            return dfRepublicans
+        elif party == 'D':
+            dfDemocrats = dfbase.loc[dfbase['Party']=='DEM']
+            return dfDemocrats
 def Welcome(status):
     if status == 'First':
         print('Hello, welcome to the FEC2019-20 filings explorer.')
-        x=str(input('Would you like to look at Presidential, Senate, House,Congress(Senate+House,or All) data. Please respond using P,S,H,C,A'))
+        x=str(input('Would you like to look at Presidential, Senate, House,Congress(Senate+House),or All data. Please respond using P,S,H,C,A'))
         return x
     elif status == 'Returning':
         Status=str(input('Would you like to look at more data? Y/N?'))
@@ -92,15 +148,91 @@ def Looking(name):
     elif x == 'S':
         y=str(input('Would you like to look at a certain state, or the Senate as a whole? Please respond using State,Senate'))
         if y == 'State':
+            Dis='N/A'
+            Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
             Sta=str(input("Which State's senatorial race would you like to look at? Please respond using the appropriate two letter abbreviation."))
-    elif x == 'C':
-        pass
+            Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+            Based=DataFrame(x,Sta,Party,Dis)
+            Data(Based,Type)
+        elif y == 'Senate':
+            Dis='N/A'
+            Sta='N/A'
+            Type=str(input('Would you like to see the top raisers in the senate, or the top spenders? Please respond using Raised,Spent'))
+            Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+            Based=DataFrame(x,Sta,Party,Dis)
+            Data(Based,Type)
     elif x == 'P':
-        pass
+        Sta='N/A'
+        Dis='N/A'
+        Type=str(input('Would you like to see the top presidential candidate raisers or the top spenders? Please respond using Raised,Spent'))
+        Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+        Based=DataFrame(x,Sta,Party,Dis)
+        Data(Based,Type)
+    elif x == 'C':
+        y=str(input('Would you like to look at a certain state, or the Congress as a whole? Please respond using State,Congress'))
+        if y == 'State':
+            Dis='N/A'
+            Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
+            Sta=str(input("Which State's Congressional races would you like to look at? Please respond using the appropriate two letter abbreviation."))
+            Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+            Based=DataFrame(x,Sta,Party,Dis)
+            Data(Based,Type)
+        elif y == 'Congress':
+            Dis='N/A'
+            Sta='N/A'
+            Type=str(input('Would you like to see the top raisers in Congress, or the top spenders? Please respond using Raised,Spent'))
+            Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+            Based=DataFrame(x,Sta,Party,Dis)
+            Data(Based,Type)
     elif x == 'A':
-        pass
+        Dis='N/A'
+        Sta='N/A'
+        Type=str(input('Would you like to see the top raisers, or the top spenders? Please respond using Raised,Spent'))
+        Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+        Based=DataFrame(x,Sta,Party,Dis)
+        Data(Based,Type)
 def Data(dataframe,type):
-    pass
+    DF=dataframe
+    if type == 'Raised':
+        dfsort = DF.sort_values('$$', ascending=False)
+        def format(x):
+            return "${:.2f}M".format(x/1000000)
+        dfsort['$$'] = dfsort['$$'].apply(format)
+        candidates=dfsort.shape[0]
+        print(dfsort.head(candidates))
+        dfmost=dfsort.head(1)
+        amount1=str(dfmost.iat[0,4])
+        party1=str(dfmost.iat[0,3])
+        candidate1=str(dfmost.iat[0,1])
+        status1=str(dfmost.iat[0,2])
+        if status1 == 'C':
+            s='a challenger'
+        elif status1 == 'I':
+            s='the incumbent'
+        answer=('The candidate who raised the most was ' + candidate1 + ' who raised ' + amount1 +'.'+' They are a registered '+ party1 + ' and ran as ' + s + '.')
+        print(answer)
+        return
+    elif type == 'Spent':
+        dfsort = DF.sort_values('Spend', ascending=False)
+        def format(x):
+            return "${:.2f}M".format(x/1000000)
+        dfsort['Spend'] = dfsort['Spend'].apply(format)
+        candidates=dfsort.shape[0]
+        print(dfsort.head(candidates))
+        dfmost=dfsort.head(1)
+        amount1=str(dfmost.iat[0,5])
+        party1=str(dfmost.iat[0,3])
+        candidate1=str(dfmost.iat[0,1])
+        status1=str(dfmost.iat[0,2])
+        if status1 == 'C':
+            s='a challenger'
+        elif status1 == 'I':
+            s='the incumbent'
+        answer=('The candidate who spent the most was ' + candidate1 + ' who spent ' + amount1 +'.'+' They are a registered '+ party1 + ' and ran as ' + s + '.')
+        print(answer)
+        return
+
+
 
 
 
