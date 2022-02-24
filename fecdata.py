@@ -118,26 +118,34 @@ def Welcome(status):
                 c=1
                 return x
             else:
+                print('Your response did not match any of the accepted responses. Please try again.')
                 c=0
     elif status == 'Returning':
         c=0
         while c==0:
             Status=str(input('Would you like to look at more data? Y/N?'))
             if Status == 'Y':
-                x=str(input('Would you like to look at Presidential, Senate, House, or Congressional(Senate+House) data? Please respond using P,S,H,C,A'))
-                c=1
-                return x
+                k=0
+                while k==0:
+                    x=str(input('Would you like to look at Presidential, Senate, House,Congress(Senate+House),or All data. Please respond using P,S,H,C,A'))
+                    if x == 'P' or x == 'S' or x == 'H' or x == 'C' or x == 'A':
+                        return x
+                    else:
+                        print('Your response did not match any of the accepted responses. Please try again.')
+                        k=0
             elif Status == 'N':
+                print("Hope you found what you were looking for! Please come again!")
                 exit()
             else:
+                print('Your response did not match any of the accepted responses. Please try again.')
                 c=0
 def Looking(status):
     x=Welcome(status)
     c=0
     if x == 'H':
-        y=str(input('Would you like to look at a certain congressional district, a certain state, or the House as a whole? Please respond using District, State, House'))
         c=0
         while c == 0:
+            y=str(input('Would you like to look at a certain congressional district, a certain state, or the House as a whole? Please respond using District, State, House'))
             if y == 'District':
                 Sta=str(input("Which State's congressional district race would you like to look at? Please respond using the appropriate two letter abbreviation."))
                 Dis=int(input("Which District of that state would you like to look at? Please respond using the number."))
@@ -165,17 +173,21 @@ def Looking(status):
                 Data(Based,Type)
                 status='Returning'
                 Looking(status)
-            elif x == 'S':
-                y=str(input('Would you like to look at a certain state, or the Senate as a whole? Please respond using State,Senate'))
-                if y == 'State':
-                    Dis='N/A'
-                    Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
-                    Sta=str(input("Which State's senatorial race would you like to look at? Please respond using the appropriate two letter abbreviation."))
-                    Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
-                    Based=DataFrame(x,Sta,Party,Dis)
-                    Data(Based,Type)
-                    status='Returning'
-                    Looking(status)
+            else:
+                print('Your response did not match any of the accepted responses. Please try again.')
+    elif x == 'S':
+        c=0
+        while c == 0:
+            y=str(input('Would you like to look at a certain state, or the Senate as a whole? Please respond using State,Senate'))
+            if y == 'State':
+                Dis='N/A'
+                Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
+                Sta=str(input("Which State's senatorial race would you like to look at? Please respond using the appropriate two letter abbreviation."))
+                Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Based=DataFrame(x,Sta,Party,Dis)
+                Data(Based,Type)
+                status='Returning'
+                Looking(status)
             elif y == 'Senate':
                 Dis='N/A'
                 Sta='N/A'
@@ -185,27 +197,30 @@ def Looking(status):
                 Data(Based,Type)
                 status='Returning'
                 Looking(status)
-            elif x == 'P':
-                Sta='N/A'
+            else:
+                print('Your response did not match any of the accepted responses. Please try again.')
+    elif x == 'P':
+        Sta='N/A'
+        Dis='N/A'
+        Type=str(input('Would you like to see the top presidential candidate raisers or the top spenders? Please respond using Raised,Spent'))
+        Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+        Based=DataFrame(x,Sta,Party,Dis)
+        Data(Based,Type)
+        status='Returning'
+        Looking(status)
+    elif x == 'C':
+        c=0
+        while c == 0:
+            y=str(input('Would you like to look at a certain state, or the Congress as a whole? Please respond using State,Congress'))
+            if y == 'State':
                 Dis='N/A'
-                Type=str(input('Would you like to see the top presidential candidate raisers or the top spenders? Please respond using Raised,Spent'))
+                Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
+                Sta=str(input("Which State's Congressional races would you like to look at? Please respond using the appropriate two letter abbreviation."))
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
                 Looking(status)
-            elif x == 'C':
-                y=str(input('Would you like to look at a certain state, or the Congress as a whole? Please respond using State,Congress'))
-                if y == 'State':
-                    Dis='N/A'
-                    Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
-                    Sta=str(input("Which State's Congressional races would you like to look at? Please respond using the appropriate two letter abbreviation."))
-                    Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
-                    Based=DataFrame(x,Sta,Party,Dis)
-                    Data(Based,Type)
-                    status='Returning'
-                    Looking(status)
-
             elif y == 'Congress':
                 Dis='N/A'
                 Sta='N/A'
@@ -215,15 +230,17 @@ def Looking(status):
                 Data(Based,Type)
                 status='Returning'
                 Looking(status)
-            elif x == 'A':
-                Dis='N/A'
-                Sta='N/A'
-                Type=str(input('Would you like to see the top raisers, or the top spenders? Please respond using Raised,Spent'))
-                Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
-                Based=DataFrame(x,Sta,Party,Dis)
-                Data(Based,Type)
-                status='Returning'
-                Looking(status)
+            else:
+                print('Your response did not match any of the accepted responses. Please try again.')
+    elif x == 'A':
+        Dis='N/A'
+        Sta='N/A'
+        Type=str(input('Would you like to see the top raisers, or the top spenders? Please respond using Raised,Spent'))
+        Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+        Based=DataFrame(x,Sta,Party,Dis)
+        Data(Based,Type)
+        status='Returning'
+        Looking(status)
 def Data(dataframe,type):
     DF=dataframe
     if type == 'Raised':
@@ -268,16 +285,15 @@ def Data(dataframe,type):
         return
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 Looking('First')
+
+def Check(mode):
+    pass
+
+
+
+
+
+
+
+
