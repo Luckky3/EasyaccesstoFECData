@@ -148,9 +148,13 @@ def Looking(status):
             y=str(input('Would you like to look at a certain congressional district, a certain state, or the House as a whole? Please respond using District, State, House'))
             if y == 'District':
                 Sta=str(input("Which State's congressional district race would you like to look at? Please respond using the appropriate two letter abbreviation."))
+                Check(Sta)
                 Dis=int(input("Which District of that state would you like to look at? Please respond using the number."))
+                Check(Dis)
                 Type=str(input('Would you like to see the top raisers in this district, or the top spenders? Please respond using Raised,Spent'))
+                Check(Type)
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Check(Type)
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
@@ -158,8 +162,11 @@ def Looking(status):
             elif y == 'State':
                 Dis='N/A'
                 Sta=str(input("Which State's congressional district would you like to look at? Please respond using the appropriate two letter abbreviation."))
+                Check(Sta)
                 Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
+                Check(Type)
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Check(Party)
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
@@ -168,7 +175,9 @@ def Looking(status):
                 Sta='N/A'
                 Dis='N/A'
                 Type=str(input('Would you like to see the top raisers in the house, or the top spenders? Please respond using Raised,Spent'))
+                Check(Type)
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Check(Party)
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
@@ -181,9 +190,12 @@ def Looking(status):
             y=str(input('Would you like to look at a certain state, or the Senate as a whole? Please respond using State,Senate'))
             if y == 'State':
                 Dis='N/A'
-                Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
                 Sta=str(input("Which State's senatorial race would you like to look at? Please respond using the appropriate two letter abbreviation."))
+                Check(Sta)
+                Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
+                Check(Type)
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Check(Party)
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
@@ -192,7 +204,9 @@ def Looking(status):
                 Dis='N/A'
                 Sta='N/A'
                 Type=str(input('Would you like to see the top raisers in the senate, or the top spenders? Please respond using Raised,Spent'))
+                Check(Type)
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Check(Party)
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
@@ -203,7 +217,9 @@ def Looking(status):
         Sta='N/A'
         Dis='N/A'
         Type=str(input('Would you like to see the top presidential candidate raisers or the top spenders? Please respond using Raised,Spent'))
+        Check(Type)
         Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+        Check(Party)
         Based=DataFrame(x,Sta,Party,Dis)
         Data(Based,Type)
         status='Returning'
@@ -214,9 +230,12 @@ def Looking(status):
             y=str(input('Would you like to look at a certain state, or the Congress as a whole? Please respond using State,Congress'))
             if y == 'State':
                 Dis='N/A'
-                Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
                 Sta=str(input("Which State's Congressional races would you like to look at? Please respond using the appropriate two letter abbreviation."))
+                Check(Sta)
+                Type=str(input('Would you like to see the top raisers in this state, or the top spenders? Please respond using Raised,Spent'))
+                Check(Type)
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Check(Party
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
@@ -225,7 +244,9 @@ def Looking(status):
                 Dis='N/A'
                 Sta='N/A'
                 Type=str(input('Would you like to see the top raisers in Congress, or the top spenders? Please respond using Raised,Spent'))
+                Check(Type)
                 Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+                Check(Party)
                 Based=DataFrame(x,Sta,Party,Dis)
                 Data(Based,Type)
                 status='Returning'
@@ -236,7 +257,9 @@ def Looking(status):
         Dis='N/A'
         Sta='N/A'
         Type=str(input('Would you like to see the top raisers, or the top spenders? Please respond using Raised,Spent'))
+        Check(Type)
         Party=str(input('Would you like to look at Republicans,Democrats,or all parties? Please respond using R,D,A'))
+        Check(Party)
         Based=DataFrame(x,Sta,Party,Dis)
         Data(Based,Type)
         status='Returning'
